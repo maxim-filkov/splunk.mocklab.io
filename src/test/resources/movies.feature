@@ -18,20 +18,20 @@ Feature: Movies
 
   Scenario: SPL-003: Multiple movies with genre_ids null should be sorted by id (ascending)
     When I send movie request with text 'batman' and movie count 0
-    Then I get response with movies having genre_ids null sorted by id ascending
-#
-#  Scenario: SPL-003: Movies that have non-null genre_ids should be sorted by id (ascending)
-#    When I send movie request with text 'batman'
-#    Then I get response with movies having genre_ids non-null sorted by id (ascending)
-#
-#  Scenario: SPL-004: The number of movies whose sum of "genre_ids" > 400 should be no more than 7
-#    When I send movie request with text 'batman'
-#    Then I get response with number of movies whose sum of "genre_ids" > 400 not more than 7
-#
-#  Scenario: SPL-005: There is at least one movie which title has a palindrome in it
-#    When I send movie request with text 'batman'
-#    Then I get response with at least one movie which title has a palindrome in it
-#
-#  Scenario: SPL-006: There are at least two movies whose title contain the title of another movie
-#    When I send movie request with text 'batman'
-#    Then I get response with least two movies whose title contain the title of another movie
+    Then I get response with movies having genre_ids null all sorted by id ascending
+
+  Scenario: SPL-003: Movies that have non-null genre_ids should be sorted by id (ascending)
+    When I send movie request with text 'batman' and movie count 0
+    Then I get response with movies having genre_ids non-null sorted by id ascending
+
+  Scenario: SPL-004: The number of movies whose sum of "genre_ids" > 400 should be no more than 7
+    When I send movie request with text 'batman' and movie count 0
+    Then I get response with number of movies whose sum of genre_ids > 400 not more than 7
+
+  Scenario: SPL-005: There are movies whose titles have palindrome in it
+    When I send movie request with text 'batman' and movie count 0
+    Then I get response with at least 1 movie which title has a palindrome in it
+
+  Scenario: SPL-006: There are movies whose titles contain the title of another movie
+    When I send movie request with text 'batman' and movie count 0
+    Then I get response with at least 2 movies whose title contain the title of another movie
