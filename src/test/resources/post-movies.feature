@@ -20,7 +20,7 @@ Feature: Movies
     Then I receive response status code 400
 
   Scenario: It should not be possible to omit the required 'Content-Type' header
-    When I create movie with the name 'Terminator 2 Judgement Day' and description 'Test' and Content-Type header is 'null'
+    When I create movie with the Content-Type header is 'null' name 'Terminator 2 Judgement Day' and description 'Test'
     Then I receive response status code 404
 
   Scenario: It should not be possible to create a movie with empty name

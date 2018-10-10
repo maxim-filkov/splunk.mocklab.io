@@ -46,7 +46,7 @@ Feature: Movies
 
   Scenario: It should not be possible to omit the required 'q' parameter
     When I send movie request with text 'null' and movie count '0'
-    Then I receive response status code 400
+    Then I receive response status code 404
 
   Scenario: It should not be possible to omit the required 'Accept' header
     When I send movie request with the Accept header is 'null' text 'batman' and movie count '0'
