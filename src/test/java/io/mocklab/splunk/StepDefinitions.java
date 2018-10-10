@@ -42,7 +42,7 @@ public class StepDefinitions {
         response = spec.when().get("/movies");
     }
 
-    @When("^I send movie request with text '(.*?)' and movie count '?(.*?)'? and Accept header is '(.*?)'$")
+    @When("^I send movie request with the Accept header is '(.*?)' text '(.*?)' and movie count '(.*?)'$")
     public void sendMovieRequestWithTextAndRecordsNumberAndAcceptHeader(String text, String count, String header) {
         RequestSpecification spec = header.equals("null") ? given() : given().accept(header);
         spec = text.equals("null") ? spec : spec.param("q", count);
@@ -58,7 +58,7 @@ public class StepDefinitions {
         response = given().contentType(ContentType.JSON).body(requestParams).when().post("/movies");
     }
 
-    @When("^I create movie with the name '(.*?)' and description '(.*?)' and Content-Type header is (.+)$")
+    @When("^I create movie with the Content-Type header is '(.*?)' name '(.*?)' and description '(.*?)'$")
     public void createMovieWithNameAndDescriptionAndHeader(String name, String description, String header) {
         Map<String, Object> requestParams = new HashMap<>();
         requestParams.compute("name", (k, v) -> name.equals("null") ? null : name);

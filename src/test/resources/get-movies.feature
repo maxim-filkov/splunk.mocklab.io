@@ -49,7 +49,7 @@ Feature: Movies
     Then I receive response status code 400
 
   Scenario: It should not be possible to omit the required 'Accept' header
-    When I send movie request with text 'batman' and movie count '0' and Accept header is 'null'
+    When I send movie request with the Accept header is 'null' text 'batman' and movie count '0'
     Then I receive response status code 404
 
   Scenario: It should be possible to omit the optional 'count' parameter
@@ -86,6 +86,6 @@ Feature: Movies
     Then I receive response status code 200
     And I receive exactly 1 movie(s) back
 
-  Scenario: It should not be possible to send 'Accept' not application/json
-    When I send movie request with text 'batman' and movie count '0' and Accept header is 'application/ecmascript'
+  Scenario: It should not be possible to send 'Accept' header not application/json
+    When I send movie request with the Accept header is 'application/ecmascript' text 'batman' and movie count '0'
     Then I receive response status code 404

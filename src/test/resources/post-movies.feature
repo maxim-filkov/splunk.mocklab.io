@@ -7,7 +7,7 @@ Feature: Movies
 
   Scenario: It should be possible to create a new movie
     When I create movie with the name 'Terminator 2 Judgement Day' and description 'Sequel to the 1984 film The Terminator'
-    And I send movie request with text 'Terminator 2 Judgement Day' and movie count 0
+    And I send movie request with text 'Terminator 2 Judgement Day' and movie count '0'
     Then I receive response status code 200
     And I get movie with the name 'Terminator 2 Judgement Day' and description 'Sequel to the 1984 film The Terminator'
 
@@ -20,7 +20,7 @@ Feature: Movies
     Then I receive response status code 400
 
   Scenario: It should not be possible to omit the required 'Content-Type' header
-    When I create movie with the name 'Terminator 2 Judgement Day' and description 'null' and Content-Type header is null
+    When I create movie with the name 'Terminator 2 Judgement Day' and description 'Test' and Content-Type header is 'null'
     Then I receive response status code 404
 
   Scenario: It should not be possible to create a movie with empty name
@@ -30,3 +30,7 @@ Feature: Movies
   Scenario: It should not be possible to create a movie with empty description
     When I create movie with the name 'Terminator 2 Judgement Day' and description ''
     Then I receive response status code 400
+
+  Scenario: It should not be possible to send 'Content-Type' header not application/json
+    When I create movie with the Content-Type header is 'application/ecmascript' name 'Terminator' and description 'Test'
+    Then I receive response status code 404
