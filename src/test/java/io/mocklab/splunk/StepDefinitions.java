@@ -5,6 +5,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import one.util.streamex.EntryStream;
@@ -33,7 +34,7 @@ public class StepDefinitions {
         RestAssured.baseURI = "https://splunk.mocklab.io";
     }
 
-    @When("^I send movie request with text '(.*?)' and movie count (-?\\d|null)$")
+    @When("^I send movie request with text '(.*?)' and movie count '(.*?)'$")
     public void sendMovieRequestWithTextAndRecordsNumber(String text, String count) {
         RequestSpecification spec = given().accept(ContentType.JSON);
         spec = text.equals("null") ? spec : spec.param("q", text);
@@ -41,9 +42,9 @@ public class StepDefinitions {
         response = spec.when().get("/movies");
     }
 
-    @When("^I send movie request with text '(.+)' and movie count (-?\\d|null) and Accept header is (.+)$")
-    public void sendMovieRequestWithTextAndRecordsNumberAndHeader(String text, String count, String header) {
-        RequestSpecification spec = header.equals("null") ? given() : given().accept(ContentType.JSON);
+    @When("^I send movie request with text '(.*?)' and movie count '?(.*?)'? and Accept header is '(.*?)'$")
+    public void sendMovieRequestWithTextAndRecordsNumberAndAcceptHeader(String text, String count, String header) {
+        RequestSpecification spec = header.equals("null") ? given() : given().accept(header);
         spec = text.equals("null") ? spec : spec.param("q", count);
         spec = count.equals("null") ? spec : spec.param("count", count);
         response = spec.when().get("/movies");
@@ -148,5 +149,12 @@ public class StepDefinitions {
     public void checkResponseStatusCode(int statusCode) {
         assertEquals("Expected response status code does not match", statusCode, response.getStatusCode());
     }
+
+    @And("^I receive exactly (\\d+) movie\\(s\\) back$")
+    public void checkResponseContainsNumberOfMoviesEqualTo(int numOfMovies) {
+        List<String> titles = response.then().extract().path("results.title");
+        assertEquals("The 'count' parameter doesn't limit the movies", numOfMovies, titles.size());
+    }
+
 
 }
